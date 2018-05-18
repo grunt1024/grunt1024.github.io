@@ -117,7 +117,7 @@
 <meta property="og:description" content="设置菜单项的显示文本。在第一步中设置的菜单的名称并不直接用于界面上的展示。Hexo 在生成的时候将使用 这个名称查找对应的语言翻译，并提取显示文本。这些翻译文本放置在 NexT 主题目录下的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://localhost:4000/2018/05/19/测试文章1/dota2.jpg">
-<meta property="og:updated_time" content="2018-05-18T08:24:59.238Z">
+<meta property="og:updated_time" content="2018-05-18T09:14:15.968Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="测试文章1">
 <meta name="twitter:description" content="设置菜单项的显示文本。在第一步中设置的菜单的名称并不直接用于界面上的展示。Hexo 在生成的时候将使用 这个名称查找对应的语言翻译，并提取显示文本。这些翻译文本放置在 NexT 主题目录下的">
@@ -353,7 +353,7 @@
                 
               
 
-              <time title="创建时间：2018-05-18 16:18:51 / 修改时间：08:24:59" itemprop="dateCreated datePublished" datetime="2018-05-18T16:18:51Z">2018-05-18</time>
+              <time title="创建时间：2018-05-18 16:18:51 / 修改时间：09:14:15" itemprop="dateCreated datePublished" datetime="2018-05-18T16:18:51Z">2018-05-18</time>
             
 
             
@@ -395,7 +395,7 @@
 <a id="more"></a>
 <p>以简体中文为例，若你需要添加一个菜单项，比如 something。那么就需要修改简体中文对应的翻译文件 languages/zh-Hans.yml，在 menu 字段下添加一项：</p>
 <p><img src="dota2.jpg" alt=""></p>
-
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line"><span class="keyword">void</span> ShellInsertSort(<span class="keyword">int</span> a[], <span class="keyword">int</span> n, <span class="keyword">int</span> dk)  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i= dk; i&lt;n; ++i)&#123;  </span><br><span class="line">        <span class="keyword">if</span>(a[i] &lt; a[i-dk])&#123;          <span class="comment">//若第i个元素大于i-1元素，直接插入。小于的话，移动有序表后插入  </span></span><br><span class="line">            <span class="keyword">int</span> j = i-dk;     </span><br><span class="line">            <span class="keyword">int</span> x = a[i];           <span class="comment">//复制为哨兵，即存储待排序元素  </span></span><br><span class="line">            a[i] = a[i-dk];         <span class="comment">//首先后移一个元素  </span></span><br><span class="line">            <span class="keyword">while</span>(x &lt; a[j])&#123;     <span class="comment">//查找在有序表的插入位置  </span></span><br><span class="line">                a[j+dk] = a[j];  </span><br><span class="line">                j -= dk;             <span class="comment">//元素后移  </span></span><br><span class="line">            &#125;  </span><br><span class="line">            a[j+dk] = x;            <span class="comment">//插入到正确位置  </span></span><br><span class="line">        &#125;  </span><br><span class="line">        print(a, n,i );  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -513,14 +513,18 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">标签</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -582,7 +586,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
