@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="现在我们提起密码学已经不陌生了，密码学是网络安全的基石。如果没有密码学，网络中的绝大多数应用都无从谈起。  给我密码学启蒙的是高一课堂时候一次传小纸条事件。学生时代大家都喜欢传小纸条，那天我收到一张A传给B的纸条，上面写着奇怪的文字，类似于“TYJNNOYEYJJUBH”这种，我看得一脸懵逼，而B收到后拿着笔在纸上写写画画了一番，然后转身对着A笑着比了一个OK的手势。后来他们向我解释了通信原理，若">
+<meta name="keywords" content="密码学,对称加密,非对称加密,哈希散列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典密码学与现代密码学">
+<meta property="og:url" content="http://localhost:4000/2017/05/19/关于密码学那些事/index.html">
+<meta property="og:site_name" content="五年高考三年大学">
+<meta property="og:description" content="现在我们提起密码学已经不陌生了，密码学是网络安全的基石。如果没有密码学，网络中的绝大多数应用都无从谈起。  给我密码学启蒙的是高一课堂时候一次传小纸条事件。学生时代大家都喜欢传小纸条，那天我收到一张A传给B的纸条，上面写着奇怪的文字，类似于“TYJNNOYEYJJUBH”这种，我看得一脸懵逼，而B收到后拿着笔在纸上写写画画了一番，然后转身对着A笑着比了一个OK的手势。后来他们向我解释了通信原理，若">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/关于密码学那些事/dota2.jpg">
+<meta property="og:updated_time" content="2018-09-26T05:51:06.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="经典密码学与现代密码学">
+<meta name="twitter:description" content="现在我们提起密码学已经不陌生了，密码学是网络安全的基石。如果没有密码学，网络中的绝大多数应用都无从谈起。  给我密码学启蒙的是高一课堂时候一次传小纸条事件。学生时代大家都喜欢传小纸条，那天我收到一张A传给B的纸条，上面写着奇怪的文字，类似于“TYJNNOYEYJJUBH”这种，我看得一脸懵逼，而B收到后拿着笔在纸上写写画画了一番，然后转身对着A笑着比了一个OK的手势。后来他们向我解释了通信原理，若">
+<meta name="twitter:image" content="http://localhost:4000/2017/05/19/关于密码学那些事/dota2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://localhost:4000/2017/05/19/关于密码学那些事/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>经典密码学与现代密码学 | 五年高考三年大学</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">五年高考三年大学</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2017/05/19/关于密码学那些事/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张华">
+      <meta itemprop="description" content="iOS，Python，Java，JavaScript，Go">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="五年高考三年大学">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">经典密码学与现代密码学
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-05-18 16:18:51" itemprop="dateCreated datePublished" datetime="2017-05-18T16:18:51Z">2017-05-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-26 05:51:06" itemprop="dateModified" datetime="2018-09-26T05:51:06Z">2018-09-26</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在我们提起密码学已经不陌生了，密码学是网络安全的基石。如果没有密码学，网络中的绝大多数应用都无从谈起。</p>
+<blockquote>
+<p>给我密码学启蒙的是高一课堂时候一次传小纸条事件。学生时代大家都喜欢传小纸条，那天我收到一张A传给B的纸条，上面写着奇怪的文字，类似于“TYJNNOYEYJJUBH”这种，我看得一脸懵逼，而B收到后拿着笔在纸上写写画画了一番，然后转身对着A笑着比了一个OK的手势。后来他们向我解释了通信原理，若干年后我才意识到他们其实是在用凯撒密码飞鸽传书。我看到的那串莫名其名的数字其实就是一串密文，B涂涂画画的过程就是一个消息解密过程，而他们已经线下协商好了秘钥。那件事给我留下了极为深刻的印象。</p>
+<p>凯撒密码：凯撒密码作为一种最为古老的对称加密体制，在古罗马的时候都已经很流行，他的基本思想是：通过把字母移动一定的位数来实现加密和解密。例如，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推X将变成A，Y变成B，Z变成C。</p>
+</blockquote>
+<a id="more"></a>
+<p>在正式介绍密码学之前，我们先通过一个小例子来提出一些问题，然后思考一些亟待解决的问题。</p>
+<blockquote>
+<p>现在课堂上A<br>以简体中文为例，若你需要添加一个菜单项，比如 something。那么就需要修改简体中文对应的翻译文件 languages/zh-Hans.yml，在 menu 字段下添加一项：</p>
+</blockquote>
+<p><img src="dota2.jpg" alt=""></p>
+<h3 id="密码学历史"><a href="#密码学历史" class="headerlink" title="密码学历史"></a>密码学历史</h3><h4 id="凯撒密码示例"><a href="#凯撒密码示例" class="headerlink" title="凯撒密码示例"></a>凯撒密码示例</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">     fmt.Println(CaesarEncrypt(<span class="string">"attack"</span>,<span class="number">15</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*输入明文和偏移位数（偏移位数 &lt;= 25)*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CaesarEncrypt</span><span class="params">(PlainText <span class="keyword">string</span>, number <span class="keyword">int</span>)</span> <span class="params">(CipherText <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, char := <span class="keyword">range</span> PlainText &#123;</span><br><span class="line"></span><br><span class="line">		temp := <span class="keyword">int</span>(char) + number</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">int</span>(temp) &gt; <span class="string">'z'</span> &#123;</span><br><span class="line">			temp -= <span class="string">'z'</span> - <span class="string">'a'</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		CipherText += <span class="keyword">string</span>(temp)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种加密算法几乎没有安全性，只要最多尝试25次即可试出秘钥；<br>如果尝试A字母可以和任意字母替换，B在剩余25个字母中寻找替换，那么一共有26！种算法，这个数字已经是很大很大了，但即使是这样也不安全。因为英文中单词中字母出现的概率是有规律的，比如字母“E”出现的频率最高，只要获取大量的密文，就可以基于概率统计学进行破解。</p>
+</blockquote>
+<h4 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h4><h4 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a>栅栏密码</h4><h3 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h3><h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><h3 id="密码学应用"><a href="#密码学应用" class="headerlink" title="密码学应用"></a>密码学应用</h3><ul>
+<li>https</li>
+<li>ssl</li>
+<li>数字证书</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line"><span class="keyword">void</span> ShellInsertSort(<span class="keyword">int</span> a[], <span class="keyword">int</span> n, <span class="keyword">int</span> dk)  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i= dk; i&lt;n; ++i)&#123;  </span><br><span class="line">        <span class="keyword">if</span>(a[i] &lt; a[i-dk])&#123;          <span class="comment">//若第i个元素大于i-1元素，直接插入。小于的话，移动有序表后插入  </span></span><br><span class="line">            <span class="keyword">int</span> j = i-dk;     </span><br><span class="line">            <span class="keyword">int</span> x = a[i];           <span class="comment">//复制为哨兵，即存储待排序元素  </span></span><br><span class="line">            a[i] = a[i-dk];         <span class="comment">//首先后移一个元素  </span></span><br><span class="line">            <span class="keyword">while</span>(x &lt; a[j])&#123;     <span class="comment">//查找在有序表的插入位置  </span></span><br><span class="line">                a[j+dk] = a[j];  </span><br><span class="line">                j -= dk;             <span class="comment">//元素后移  </span></span><br><span class="line">            &#125;  </span><br><span class="line">            a[j+dk] = x;            <span class="comment">//插入到正确位置  </span></span><br><span class="line">        &#125;  </span><br><span class="line">        print(a, n,i );  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/密码学/" rel="tag"># 密码学</a>
+          
+            <a href="/tags/对称加密/" rel="tag"># 对称加密</a>
+          
+            <a href="/tags/非对称加密/" rel="tag"># 非对称加密</a>
+          
+            <a href="/tags/哈希散列/" rel="tag"># 哈希散列</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/11/如何优雅地实现单例模式/" rel="next" title="如何优雅地实现单例模式">
+                <i class="fa fa-chevron-left"></i> 如何优雅地实现单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/19/当我们谈论挖矿究竟在谈什么/" rel="prev" title="当我们谈论挖矿究竟在谈什么">
+                当我们谈论挖矿究竟在谈什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张华</p>
+              <p class="site-description motion-element" itemprop="description">iOS，Python，Java，JavaScript，Go</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/grunt1024" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zhanghua10240@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/HeroMeepo" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/zhanghua1024/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#密码学历史"><span class="nav-number">1.</span> <span class="nav-text">密码学历史</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#凯撒密码示例"><span class="nav-number">1.1.</span> <span class="nav-text">凯撒密码示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#维吉尼亚密码"><span class="nav-number">1.2.</span> <span class="nav-text">维吉尼亚密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栅栏密码"><span class="nav-number">1.3.</span> <span class="nav-text">栅栏密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对称加密"><span class="nav-number">2.</span> <span class="nav-text">对称加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非对称加密"><span class="nav-number">3.</span> <span class="nav-text">非对称加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码学应用"><span class="nav-number">4.</span> <span class="nav-text">密码学应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张华</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.5.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
