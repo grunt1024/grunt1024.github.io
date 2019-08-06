@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="以前要开发Java后端程序，一般都是采用SSH或者SSM框架，要用到很多的配置文件，但是Spring Boot的出现，可以大大提高我们的开发效率，本文记录用Spring Boot大概用十分钟的时间写一套接口出来。 前置开发工具： IDEA（自己安装好JDK，配置好Java环境） Maven （管理依赖，打包项目） Mysql（使用Mysql读写数据） Postman（测试接口使用）  采用的工具框">
+<meta name="keywords" content="Java,Spring Boot,SSM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十分钟用Spring Boot写API">
+<meta property="og:url" content="http://localhost:4000/2017/05/19/十分钟用Spring Boot写API/index.html">
+<meta property="og:site_name" content="张华的个人站点">
+<meta property="og:description" content="以前要开发Java后端程序，一般都是采用SSH或者SSM框架，要用到很多的配置文件，但是Spring Boot的出现，可以大大提高我们的开发效率，本文记录用Spring Boot大概用十分钟的时间写一套接口出来。 前置开发工具： IDEA（自己安装好JDK，配置好Java环境） Maven （管理依赖，打包项目） Mysql（使用Mysql读写数据） Postman（测试接口使用）  采用的工具框">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/01.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/02.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/03.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/05.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/06.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/07.png">
+<meta property="og:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/08.png">
+<meta property="og:updated_time" content="2019-08-06T03:38:20.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="十分钟用Spring Boot写API">
+<meta name="twitter:description" content="以前要开发Java后端程序，一般都是采用SSH或者SSM框架，要用到很多的配置文件，但是Spring Boot的出现，可以大大提高我们的开发效率，本文记录用Spring Boot大概用十分钟的时间写一套接口出来。 前置开发工具： IDEA（自己安装好JDK，配置好Java环境） Maven （管理依赖，打包项目） Mysql（使用Mysql读写数据） Postman（测试接口使用）  采用的工具框">
+<meta name="twitter:image" content="http://localhost:4000/2017/05/19/十分钟用Spring%20Boot写API/01.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://localhost:4000/2017/05/19/十分钟用Spring Boot写API/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>十分钟用Spring Boot写API | 张华的个人站点</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张华的个人站点</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2017/05/19/十分钟用Spring Boot写API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张华">
+      <meta itemprop="description" content="iOS，Java，Node">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张华的个人站点">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">十分钟用Spring Boot写API
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-05-18 16:19:07" itemprop="dateCreated datePublished" datetime="2017-05-18T16:19:07Z">2017-05-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-06 03:38:20" itemprop="dateModified" datetime="2019-08-06T03:38:20Z">2019-08-06</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以前要开发Java后端程序，一般都是采用SSH或者SSM框架，要用到很多的配置文件，但是Spring Boot的出现，可以大大提高我们的开发效率，本文记录用Spring Boot大概用十分钟的时间写一套接口出来。</p>
+<h4 id="前置开发工具："><a href="#前置开发工具：" class="headerlink" title="前置开发工具："></a>前置开发工具：</h4><ul>
+<li>IDEA（自己安装好JDK，配置好Java环境）</li>
+<li>Maven （管理依赖，打包项目）</li>
+<li>Mysql（使用Mysql读写数据）</li>
+<li>Postman（测试接口使用）</li>
+</ul>
+<h4 id="采用的工具框架"><a href="#采用的工具框架" class="headerlink" title="采用的工具框架"></a>采用的工具框架</h4><ul>
+<li>SpringMVC</li>
+<li>Spring</li>
+<li>Mybatis</li>
+</ul>
+<a id="more"></a>
+<h3 id="一，前置准备"><a href="#一，前置准备" class="headerlink" title="一，前置准备"></a>一，前置准备</h3><h4 id="1，打开IDEA，创建一个Spring-Boot项目"><a href="#1，打开IDEA，创建一个Spring-Boot项目" class="headerlink" title="1，打开IDEA，创建一个Spring Boot项目"></a>1，打开IDEA，创建一个Spring Boot项目</h4><p><img src="01.png" alt=""></p>
+<h4 id="2，填写公司信息，项目信息"><a href="#2，填写公司信息，项目信息" class="headerlink" title="2，填写公司信息，项目信息"></a>2，填写公司信息，项目信息</h4><p><img src="02.png" alt=""></p>
+<h4 id="3，数据库建表，填写表字段"><a href="#3，数据库建表，填写表字段" class="headerlink" title="3，数据库建表，填写表字段"></a>3，数据库建表，填写表字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">NAMES</span> utf8mb4;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for user</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`user`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'姓名'</span>,</span><br><span class="line">  <span class="string">`password`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'密码'</span>,</span><br><span class="line">  <span class="string">`gender`</span> <span class="built_in">int</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'性别0-女，1-男'</span>,</span><br><span class="line">  <span class="string">`address`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'地址'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1004</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8mb4;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Records of user</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="number">1001</span>, <span class="string">'jack'</span>, <span class="string">'123'</span>, <span class="number">1</span>, <span class="string">'上海市浦东新区231弄'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="number">1002</span>, <span class="string">'meepo'</span>, <span class="string">'212'</span>, <span class="number">1</span>, <span class="string">'上海市闵行区128弄'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="number">1003</span>, <span class="string">'jugg'</span>, <span class="string">'1212'</span>, <span class="number">0</span>, <span class="string">'上海市黄浦区288弄'</span>);</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="03.png" alt=""></p>
+<h4 id="4-配置数据源"><a href="#4-配置数据源" class="headerlink" title="4,配置数据源"></a>4,配置数据源</h4><p>配置数据库地址，用户名和密码，这一步比较简单，不再赘述。</p>
+<h3 id="二，项目分层"><a href="#二，项目分层" class="headerlink" title="二，项目分层"></a>二，项目分层</h3><p>采用SSM框架，即Spring + SpringMVC + Mybatis，经典的三层架构，表现层，业务层，持久层；<br><img src="05.png" alt=""></p>
+<p><img src="06.png" alt=""></p>
+<h3 id="三，接口开发"><a href="#三，接口开发" class="headerlink" title="三，接口开发"></a>三，接口开发</h3><h4 id="controller里面代码："><a href="#controller里面代码：" class="headerlink" title="controller里面代码："></a>controller里面代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user 用户信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/user/register"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody User user)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//1,查找用户名是否已经存在</span></span><br><span class="line">        User existUser = userService.queryUserByUsername(user.getUsername());</span><br><span class="line">        <span class="keyword">if</span> (existUser != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">101</span>,<span class="string">"用户名已经存在"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//2,保存用户信息入库</span></span><br><span class="line">        userService.register(user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据用户名查找用户信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> username 用户名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"user/&#123;username&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">queryUserByUsername</span><span class="params">(@PathVariable String username)</span></span>&#123;</span><br><span class="line">        User user = userService.queryUserByUsername(username);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="service实现代码："><a href="#service实现代码：" class="headerlink" title="service实现代码："></a>service实现代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserMapper userMapper;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(user.getUsername());</span><br><span class="line"></span><br><span class="line">        userMapper.register(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">queryUserByUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> userMapper.queryUserByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="持久层代码："><a href="#持久层代码：" class="headerlink" title="持久层代码："></a>持久层代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Insert</span>(<span class="string">"insert into user (username,password,gender,address) values(#&#123;userName&#125;, #&#123;passWord&#125;,#&#123;gender&#125;,#&#123;address&#125;)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(User user)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Select</span>(<span class="string">"select * from user where username = #&#123;username&#125;"</span>)</span><br><span class="line">    <span class="function">User <span class="title">queryUserByUsername</span><span class="params">(@Param(<span class="string">"username"</span>)</span> String username)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="公共接口返回类："><a href="#公共接口返回类：" class="headerlink" title="公共接口返回类："></a>公共接口返回类：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer code; <span class="comment">//状态码</span></span><br><span class="line">    <span class="keyword">private</span> String  message; <span class="comment">//消息</span></span><br><span class="line">    <span class="keyword">private</span> Object  data;  <span class="comment">//数据</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="与数据库映射的实体类Entity："><a href="#与数据库映射的实体类Entity：" class="headerlink" title="与数据库映射的实体类Entity："></a>与数据库映射的实体类Entity：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> Integer gender;<span class="comment">//0-女 1-男</span></span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"id="</span> + id +</span><br><span class="line">                <span class="string">", username='"</span> + username + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", password='"</span> + password + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", gender="</span> + gender +</span><br><span class="line">                <span class="string">", address='"</span> + address + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="四，接口测试"><a href="#四，接口测试" class="headerlink" title="四，接口测试"></a>四，接口测试</h3><p>启动项目，如果看到控制台有“Tomcat started on port(s): 8080 (http) with context path”字样输出，证明项目已经启动成功，用postman来测试接口</p>
+<h4 id="首次注册"><a href="#首次注册" class="headerlink" title="首次注册"></a>首次注册</h4><p><img src="07.png" alt=""></p>
+<p>查看数据库是否记录到数据<br><img src="08.png" alt=""></p>
+<p>到这里使用Spring Boot写接口的简单演示就结束了，有时间补充一篇关于Mybatis原理，以及使用xml方式读写数据，以及多数据源配置方法。</p>
+<h3 id="五，其他问题"><a href="#五，其他问题" class="headerlink" title="五，其他问题"></a>五，其他问题</h3><p>由于这是一个简单的演示项目，存在一些问题，比如：</p>
+<ul>
+<li>注册之前没有邮箱或者手机号验证；</li>
+<li>密码保存没有使用密文；</li>
+<li>接口接收数据没有进行数据有效性的验证；</li>
+<li><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">mybatis中文官网</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Spring-Boot-SSM/" rel="tag"># Java,Spring Boot,SSM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/19/关于密码学那些事/" rel="next" title="经典密码学与现代密码学">
+                <i class="fa fa-chevron-left"></i> 经典密码学与现代密码学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/19/当我们谈论挖矿究竟在谈什么/" rel="prev" title="当我们谈论挖矿究竟在谈什么">
+                当我们谈论挖矿究竟在谈什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张华</p>
+              <p class="site-description motion-element" itemprop="description">iOS，Java，Node</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/grunt1024" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zhanghua10240@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/HeroMeepo" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/zhanghua1024/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-globe"></i>知乎</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置开发工具："><span class="nav-number">1.</span> <span class="nav-text">前置开发工具：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#采用的工具框架"><span class="nav-number">2.</span> <span class="nav-text">采用的工具框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一，前置准备"><span class="nav-number"></span> <span class="nav-text">一，前置准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1，打开IDEA，创建一个Spring-Boot项目"><span class="nav-number">1.</span> <span class="nav-text">1，打开IDEA，创建一个Spring Boot项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2，填写公司信息，项目信息"><span class="nav-number">2.</span> <span class="nav-text">2，填写公司信息，项目信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3，数据库建表，填写表字段"><span class="nav-number">3.</span> <span class="nav-text">3，数据库建表，填写表字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置数据源"><span class="nav-number">4.</span> <span class="nav-text">4,配置数据源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二，项目分层"><span class="nav-number"></span> <span class="nav-text">二，项目分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三，接口开发"><span class="nav-number"></span> <span class="nav-text">三，接口开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#controller里面代码："><span class="nav-number">1.</span> <span class="nav-text">controller里面代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#service实现代码："><span class="nav-number">2.</span> <span class="nav-text">service实现代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久层代码："><span class="nav-number">3.</span> <span class="nav-text">持久层代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公共接口返回类："><span class="nav-number">4.</span> <span class="nav-text">公共接口返回类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与数据库映射的实体类Entity："><span class="nav-number">5.</span> <span class="nav-text">与数据库映射的实体类Entity：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四，接口测试"><span class="nav-number"></span> <span class="nav-text">四，接口测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首次注册"><span class="nav-number">1.</span> <span class="nav-text">首次注册</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五，其他问题"><span class="nav-number"></span> <span class="nav-text">五，其他问题</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张华</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.5.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
