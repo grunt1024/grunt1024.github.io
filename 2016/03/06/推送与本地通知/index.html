@@ -108,23 +108,27 @@
 
 
 
-  <meta name="description" content="iOS，Java，Node">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张华的个人站点">
-<meta property="og:url" content="http://localhost:4000/tags/非对称加密/index.html">
+  <meta name="description" content="推送通知几乎是现在每个 App 都会做的功能了。平时我们使用 App 的时候大部分时候都是客户端主动去请求服务端接口，但是如果服务端想要主动发送消息给客户端，可能就要用到推送通知了。">
+<meta name="keywords" content="远程推送,通知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推送与本地通知">
+<meta property="og:url" content="http://localhost:4000/2016/03/06/推送与本地通知/index.html">
 <meta property="og:site_name" content="张华的个人站点">
-<meta property="og:description" content="iOS，Java，Node">
+<meta property="og:description" content="推送通知几乎是现在每个 App 都会做的功能了。平时我们使用 App 的时候大部分时候都是客户端主动去请求服务端接口，但是如果服务端想要主动发送消息给客户端，可能就要用到推送通知了。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://localhost:4000/2016/03/06/推送与本地通知/远程推送实现过程.png">
+<meta property="og:updated_time" content="2019-08-27T04:37:34.987Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张华的个人站点">
-<meta name="twitter:description" content="iOS，Java，Node">
+<meta name="twitter:title" content="推送与本地通知">
+<meta name="twitter:description" content="推送通知几乎是现在每个 App 都会做的功能了。平时我们使用 App 的时候大部分时候都是客户端主动去请求服务端接口，但是如果服务端想要主动发送消息给客户端，可能就要用到推送通知了。">
+<meta name="twitter:image" content="http://localhost:4000/2016/03/06/推送与本地通知/远程推送实现过程.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://localhost:4000/tags/非对称加密/"/>
+  <link rel="canonical" href="http://localhost:4000/2016/03/06/推送与本地通知/"/>
 
 
 
@@ -134,7 +138,7 @@
   };
 </script>
 
-  <title>标签: 非对称加密 | 张华的个人站点</title>
+  <title>推送与本地通知 | 张华的个人站点</title>
   
 
 
@@ -181,7 +185,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,7 +250,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
   </li>
@@ -266,28 +270,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -313,58 +295,205 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>非对称加密<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2016/03/06/推送与本地通知/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张华">
+      <meta itemprop="description" content="iOS，Java，Node">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张华的个人站点">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/05/19/关于密码学那些事/" itemprop="url">
-              
-                <span itemprop="name">经典密码学与现代密码学</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">推送与本地通知
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-18T16:18:51Z"
-              content="2017-05-18" >
-          05-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-05 23:19:10" itemprop="dateCreated datePublished" datetime="2016-03-05T23:19:10Z">2016-03-05</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>推送通知几乎是现在每个 App 都会做的功能了。平时我们使用 App 的时候大部分时候都是客户端主动去请求服务端接口，但是如果服务端想要主动发送消息给客户端，可能就要用到推送通知了。<br><a id="more"></a></p>
+<h3 id="iOS-中-Push-种类"><a href="#iOS-中-Push-种类" class="headerlink" title="iOS 中 Push 种类"></a>iOS 中 Push 种类</h3><h4 id="本地Push"><a href="#本地Push" class="headerlink" title="本地Push"></a>本地Push</h4><blockquote>
+<p>这种就是最常见的iOS系统通知（作用相当于传统PC端的提示窗口，在iOS10以后全部整合到UserNotifications.framework框架了），不涉及任何网络数据，仅仅是让APP拥有一个统一系统通知方式而已，比如闹钟定时提醒；</p>
+</blockquote>
+<h4 id="在线-Push"><a href="#在线-Push" class="headerlink" title="在线 Push"></a>在线 Push</h4><blockquote>
+<p>比如QQ、微信等IM界面处于前台时，聊天消息会通过自建的网络长连接通道推送过来。或者自己发的微博被人评论点赞，然后接收到 push 消息。这种Push在本文中暂且称为“在线Push”，需要客户端和自己公司服务端建立一个长连接；</p>
+</blockquote>
+<h4 id="离线-远程Push"><a href="#离线-远程Push" class="headerlink" title="离线/远程Push"></a>离线/远程Push</h4><blockquote>
+<p>这就是苹果公司提供的APNs这一套东西了，它使得APP处于后台或者已经被杀死的情况下仍能收到网络通知，最常见的应用场景就是IM聊天类应用。</p>
+</blockquote>
+<p><a href="https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1" target="_blank" rel="noopener">苹果官方关于 APNs 的文档</a></p>
+<p>使用苹果 APNs 推送的流程：</p>
+<p><img src="远程推送实现过程.png" alt=""></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/远程推送/" rel="tag"># 远程推送</a>
+          
+            <a href="/tags/通知/" rel="tag"># 通知</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/11/如何优雅地实现单例模式/" rel="next" title="如何优雅地实现单例模式">
+                <i class="fa fa-chevron-left"></i> 如何优雅地实现单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/19/关于密码学那些事/" rel="prev" title="经典密码学与现代密码学">
+                经典密码学与现代密码学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -385,8 +514,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -511,6 +649,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-中-Push-种类"><span class="nav-number">1.</span> <span class="nav-text">iOS 中 Push 种类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地Push"><span class="nav-number">1.1.</span> <span class="nav-text">本地Push</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在线-Push"><span class="nav-number">1.2.</span> <span class="nav-text">在线 Push</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离线-远程Push"><span class="nav-number">1.3.</span> <span class="nav-text">离线/远程Push</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -638,6 +792,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
