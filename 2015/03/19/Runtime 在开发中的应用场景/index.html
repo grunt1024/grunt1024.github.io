@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台; 解决思路如下：">
+  <meta name="description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;">
 <meta name="keywords" content="runtime,移动开发,iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Runtime 在实际开发中的应用">
 <meta property="og:url" content="http://localhost:4000/2015/03/19/Runtime 在开发中的应用场景/index.html">
 <meta property="og:site_name" content="张华的个人站点">
-<meta property="og:description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台; 解决思路如下：">
+<meta property="og:description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-13T01:02:11.363Z">
+<meta property="og:updated_time" content="2020-03-13T01:06:29.029Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Runtime 在实际开发中的应用">
-<meta name="twitter:description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台; 解决思路如下：">
+<meta name="twitter:description" content="Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景  先来看一个开发中的场景：项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;">
 
 
 
@@ -406,7 +406,8 @@
         <blockquote>
 <p>Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景</p>
 </blockquote>
-<p>先来看一个开发中的场景：<br>项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;<br> 解决思路如下：<br> <a id="more"></a></p>
+<p>先来看一个开发中的场景：<br>项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;<br> <a id="more"></a></p>
+<p> 解决思路如下：</p>
 <p>方案一：重写一个图片类,继承自 UIImageView,然后重写 initWithImage 方法,在重写方法里面做判断;</p>
  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#import <span class="meta-string">"ZHImageView.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZHImageView</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithImage:(<span class="built_in">UIImage</span> *)image&#123;</span><br><span class="line">    <span class="keyword">if</span> (image == <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"传入的图片为空"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span>  [<span class="keyword">super</span> initWithImage:image];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <blockquote>
