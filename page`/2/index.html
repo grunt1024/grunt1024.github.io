@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2015/05/19/关于密码学/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2015/03/19/Runtime 在开发中的应用场景/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张华">
@@ -327,8 +327,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/05/19/关于密码学/" itemprop="url">
-                  关于密码学
+                <a class="post-title-link" href="/2015/03/19/Runtime 在开发中的应用场景/" itemprop="url">
+                  Runtime 在实际开发中的应用
                 </a>
               
             
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2015-05-18 16:18:51" itemprop="dateCreated datePublished" datetime="2015-05-18T16:18:51Z">2015-05-18</time>
+              <time title="创建时间：2015-03-18 22:18:51" itemprop="dateCreated datePublished" datetime="2015-03-18T22:18:51Z">2015-03-18</time>
             
 
             
@@ -372,7 +372,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/密码学/" itemprop="url" rel="index"><span itemprop="name">密码学</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
 
                 
                 
@@ -407,20 +407,13 @@
 
       
         
-          <p>现在我们提起密码学已经不陌生了，密码学是网络安全的基石。如果没有密码学，网络中的绝大多数应用安全都无从谈起。<br>平时我们经常讨论的 https 与区块链也都是用到了密码学中的技术。比如区块链中创建一个账户，其实就是创建一对公钥私钥对，防止链上的信息被更改，又用到了哈希散列技术SHA256；</p>
-<blockquote>
-<p>给我密码学启蒙的是高一课堂时候一次传小纸条事件。学生时代大家都喜欢传小纸条，那天我收到一张A传给B的纸条，上面写着奇怪的文字，类似于“TYJNNOYEYJJUBH”这种，我看得一脸懵逼，而B收到后拿着笔在纸上写写画画了一番，然后转身对着A笑着比了一个OK的手势。后来他们向我解释了通信原理，若干年后我才意识到他们其实是在用凯撒密码飞鸽传书。我看到的那串莫名其名的数字其实就是一串密文，B涂涂画画的过程就是一个消息解密过程，而他们已经线下协商好了秘钥。那件事给我留下了极为深刻的印象。</p>
-<p>凯撒密码：凯撒密码作为一种最为古老的对称加密体制，在古罗马的时候都已经很流行，他的基本思想是：通过把字母移动一定的位数来实现加密和解密。例如，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推X将变成A，Y变成B，Z变成C。</p>
+          <blockquote>
+<p>Runtime可以说是 OC 的一大特色了，我们来看一下 runtime 的实际应用场景</p>
 </blockquote>
-<blockquote>
-<p>这种加密算法几乎没有安全性，只要最多尝试25次即可试出秘钥；</p>
-</blockquote>
-<blockquote>
-<p>如果尝试A字母可以和任意字母替换，B在剩余25个字母中寻找替换，那么一共有26！种算法，这个数字已经是很大很大了，但即使是这样也不安全。因为英文中单词中字母出现的概率是有规律的，比如字母“E”出现的频率最高，只要获取大量的密文，就可以基于概率统计学进行破解。</p>
-</blockquote>
+<p>先来看一个开发中的场景：<br>项目中我们一般都用 ImageView 显示图片，但是图片名字都是手动写进去的，如果图片的名字写错了,就不能加载到图片了。试问能不能给一种补偿机制,如果图片没有加载到,就打一条日志都控制台;<br> 解决思路如下：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/05/19/关于密码学/#more" rel="contents">
+            <a class="btn" href="/2015/03/19/Runtime 在开发中的应用场景/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -568,7 +561,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -632,7 +631,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
